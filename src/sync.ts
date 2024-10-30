@@ -26,11 +26,11 @@ async function syncData(): Promise<void> {
         // logInfo("Training Data Cleaned and Ready for Sync:");
         // console.log(cleanedTrainingData);
 
-        // const rosterData = await getRoster();
-        // const cleanedRosterData: RosterRecord[] = cleanRosterData(rosterData);
+        const rosterData = await getRoster();
+        const cleanedRosterData: RosterRecord[] = cleanRosterData(rosterData);
 
-        // logInfo("Roster Management Cleaned and Ready for Sync:");
-        // console.log(cleanedRosterData);
+        logInfo("Roster Management Cleaned and Ready for Sync:");
+        console.log(cleanedRosterData);
 
         const locations = await getLocations();
 
