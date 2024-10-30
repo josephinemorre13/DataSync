@@ -1,10 +1,12 @@
 import { getBundles, getCourses, getLocations } from "./api/registrationAPI";
-import { getRoster } from "./api/rosterManagementAPI";
+import { getRoster, updateEmployee } from "./api/rosterManagementAPI";
 import { getTrainingHistory } from "./api/trainingHistoryAPI";
 import { RosterRecord } from "./types/RosterManagement";
 import { TrainingHistoryRecord } from "./types/TrainingHistory";
 import { cleanBundleData, cleanCoursesData, cleanRosterData, cleanTrainingHistoryData } from "./utils/dataCleaner";
 import { logError, logInfo } from "./utils/logger";
+import xlsx from 'xlsx';
+import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -27,6 +29,7 @@ async function syncData(): Promise<void> {
         // console.log(cleanedTrainingData);
 
         const rosterData = await getRoster();
+        console.log("🚀 ~ syncData ~ rosterData:", rosterData)
         const cleanedRosterData: RosterRecord[] = cleanRosterData(rosterData);
 
         logInfo("Roster Management Cleaned and Ready for Sync:");
@@ -56,4 +59,58 @@ async function syncData(): Promise<void> {
     }
 }
 
-syncData();
+async function updateEmployeeData(userData: any): Promise<void> {
+    try {
+        
+        logInfo("Starting updating employee data...");
+
+        const updatedEmployeeData = await updateEmployee(userData);
+
+        logInfo("Updating Employe Data Successfully.");
+
+    } catch (error: any) {
+        logError(error.message);
+    }
+}
+
+function getFileData(): any[] {
+    try {
+        const filePath = path.join("C:", "Users", "josep", "Documents", "Upwork", "Roy_V", "userlist.xlsx");
+        
+        // Read the workbook
+        const workbook = xlsx.readFile(filePath);
+    
+        // Get the first sheet name
+        const sheetName = workbook.SheetNames[0];
+    
+        // Get the worksheet
+        const worksheet = workbook.Sheets[sheetName];
+    
+        // Convert the worksheet to JSON format
+        const data = xlsx.utils.sheet_to_json(worksheet);
+    
+        return data;
+    } catch (error: any) {
+        logError(error.message);
+        throw error;
+    }
+}
+
+try {
+    if (!API_KEY) {
+        console.error("Error: API key is empty. Please set the HASC_API_KEY environment variable.");
+        throw new Error("API key is missing.")
+    }
+
+    // syncData();
+
+    const fileData: any[] = getFileData()
+    fileData.forEach(userData => {
+        console.log(userData)
+        
+        // updateEmployeeData(userData);
+    });
+    
+} catch (error: any) {
+    logError(error.message);
+}

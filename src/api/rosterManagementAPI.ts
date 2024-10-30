@@ -109,3 +109,28 @@ export async function removeTrainee(request: RemoveTraineeRequest): Promise<any>
         return `ERROR - ${error.message}`;
     }
 }
+
+export async function updateEmployee(userData: any): Promise<any> {
+    try {
+    
+        const url = `${BASE_URL}/v1/roster`;
+        const response = await axios.put(
+            url,
+            userData,
+            {
+                headers: {
+                    "X-ApiKey": API_KEY
+                },
+                params: {
+                    email: userData.mail
+                }
+            }
+        );
+        console.log("🚀 ~ updateEmployee ~ response:", response)
+
+        return "SUCCESS";
+    } catch (error: any) {
+        console.error("Failed to update employee", error.message);
+        return `ERROR - ${error.message}`;
+    }
+}

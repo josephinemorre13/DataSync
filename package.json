@@ -5,8 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "node dist/sync.js",
-    "dev": "tsc && node dist/sync.js"
+    "start": "node dist/app.js",
+    "dev": "tsc && node dist/app.js"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +15,10 @@
   "dependencies": {
     "@types/dotenv": "^6.1.1",
     "axios": "^1.7.7",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^22.8.2",
