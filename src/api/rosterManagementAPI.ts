@@ -90,6 +90,13 @@ export async function addTrainee(request: AddTraineeRequest): Promise<AddTrainee
 }
 
 export async function removeTrainee(request: RemoveTraineeRequest): Promise<any> {
+    const { Ssn, IssuingAuthority, CouncilId } = request;
+
+    if (!Ssn && !IssuingAuthority && !CouncilId) {
+        console.error("Error: Either the SSN and IssuingAuthority are requested OR the CouncilId of an existing trainee.");
+        throw new Error("Either the SSN and IssuingAuthority must be provided OR the CouncilId of an existing trainee.")
+    }
+
     const url = `${BASE_URL}/v1/roster/remove`;
     
     try {
@@ -112,21 +119,10 @@ export async function removeTrainee(request: RemoveTraineeRequest): Promise<any>
 
 export async function updateEmployee(userData: any): Promise<any> {
     try {
-    
-        const url = `${BASE_URL}/v1/roster`;
-        const response = await axios.put(
-            url,
-            userData,
-            {
-                headers: {
-                    "X-ApiKey": API_KEY
-                },
-                params: {
-                    email: userData.mail
-                }
-            }
-        );
-        console.log("🚀 ~ updateEmployee ~ response:", response)
+        const removeEmployeeResult = await removeTrainee(userData);
+        if (removeEmployeeResult === "SUCCESS") {
+            const addEmployeeResult = await addTrainee(userData);
+        }
 
         return "SUCCESS";
     } catch (error: any) {

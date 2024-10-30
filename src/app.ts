@@ -13,6 +13,8 @@ dotenv.config();
 
 const API_KEY = process.env.HASC_API_KEY;
 
+let employees: RosterRecord[] = [];
+
 async function syncData(): Promise<void> {
     try {
         if (!API_KEY) {
@@ -31,14 +33,15 @@ async function syncData(): Promise<void> {
         const rosterData = await getRoster();
         console.log("🚀 ~ syncData ~ rosterData:", rosterData)
         const cleanedRosterData: RosterRecord[] = cleanRosterData(rosterData);
+        employees = cleanedRosterData;
 
         logInfo("Roster Management Cleaned and Ready for Sync:");
         console.log(cleanedRosterData);
 
-        const locations = await getLocations();
+        // const locations = await getLocations();
 
-        logInfo("Registration Locations Ready for Sync:");
-        console.log(locations);
+        // logInfo("Registration Locations Ready for Sync:");
+        // console.log(locations);
 
         // const courseData = await getCourses();
         // const cleanedCourseData = cleanCoursesData(courseData);
@@ -102,15 +105,30 @@ try {
         throw new Error("API key is missing.")
     }
 
-    // syncData();
+    syncData()
+        .then(() => {
+            const fileData: any[] = getFileData()
+            fileData.forEach(userData => {
+                const filteredEmployee = employees.filter(each => {
+                    if (each.email && userData.mail) return each.email.toLowerCase() === userData.mail.toLowerCase()
+                    return false;
+                })
+                if (filteredEmployee.length > 0) {
+                    filteredEmployee.forEach(employeeData => {
+                        const integratedEmployeeData = {
+                            ...userData,
+                            ...employeeData,
+                        }    
+                        console.log("🚀 ~ .then ~ integratedEmployeeData:", integratedEmployeeData)
 
-    const fileData: any[] = getFileData()
-    fileData.forEach(userData => {
-        console.log(userData)
-        
-        // updateEmployeeData(userData);
-    });
-    
+                        // updateEmployeeData(userData);
+                    })
+                }
+            });
+        })
+        .catch((error: any) => {
+            throw error
+        })
 } catch (error: any) {
     logError(error.message);
 }
