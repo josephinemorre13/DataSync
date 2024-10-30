@@ -124,6 +124,8 @@ export async function updateEmployee(userData: any): Promise<any> {
         if (removeEmployeeResult === "SUCCESS") {
             const addEmployeeResult = await addTrainee(userData);
             logInfo(addEmployeeResult)
+        } else {
+            throw new Error("Removing employee failed.")
         }
 
         return "SUCCESS";
