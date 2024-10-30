@@ -1,5 +1,8 @@
 import axios from "axios";
 import { BundleRegistrationRequest, BundleRegistrationResponse, CancelRegistrationResponse, CreateRegistrationRequest, CreateRegistrationResponse, RegistrationStatus } from "../types/Registration";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const API_KEY = process.env.HASC_API_KEY;
 const BASE_URL = "https://api1.hasc.com";
@@ -22,7 +25,7 @@ export async function getLocations(): Promise<string[]> {
             url,
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         )
@@ -43,7 +46,7 @@ export async function getCourses(location: string = "Pasadena"): Promise<any> {
             { location: location },
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         )
@@ -96,7 +99,7 @@ export async function createRegistration(request: CreateRegistrationRequest): Pr
             request,
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         );
@@ -130,7 +133,7 @@ export async function getRegistrationStatus(registrationId: number): Promise<Reg
             { registrationId: registrationId },
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         );
@@ -168,7 +171,7 @@ export async function cancelRegistration(registrationId: number): Promise<Cancel
             { registrationId: registrationId },
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         );
@@ -200,7 +203,7 @@ export async function getBundles(location: string): Promise<any> {
             { location: location },
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         )
@@ -253,7 +256,7 @@ export async function registerBundle(request: BundleRegistrationRequest): Promis
             { location: location },
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         )

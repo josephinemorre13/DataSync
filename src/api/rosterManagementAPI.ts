@@ -1,5 +1,8 @@
 import axios from "axios";
 import { AddTraineeRequest, AddTraineeResponse, RemoveTraineeRequest } from "../types/RosterManagement";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const API_KEY = process.env.HASC_API_KEY;
 const BASE_URL = "https://api1.hasc.com";
@@ -12,7 +15,7 @@ export async function getRoster(): Promise<any> {
             url,
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         );
@@ -64,7 +67,7 @@ export async function addTrainee(request: AddTraineeRequest): Promise<AddTrainee
             request,
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         );
@@ -95,7 +98,7 @@ export async function removeTrainee(request: RemoveTraineeRequest): Promise<any>
             request,
             {
                 headers: {
-                    "X-ApiKey": API_KEY
+                    "x-api-key": API_KEY
                 }
             }
         );

@@ -1,4 +1,7 @@
 import axios from "axios";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const API_KEY = process.env.HASC_API_KEY;
 
@@ -16,7 +19,7 @@ export async function getTrainingHistory(startDate: string, endDate: string): Pr
             { StartDate: startDate, EndDate: endDate },
             {
                 headers: {
-                    "X-ApiKey": API_KEY,
+                    "x-api-key": API_KEY,
                     "Content-Type": "application/json"
                 }
             }
