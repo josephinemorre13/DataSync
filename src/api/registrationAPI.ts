@@ -25,7 +25,7 @@ export async function getLocations(): Promise<string[]> {
             url,
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         )
@@ -46,7 +46,7 @@ export async function getCourses(location: string = "Pasadena"): Promise<any> {
             { location: location },
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         )
@@ -99,7 +99,7 @@ export async function createRegistration(request: CreateRegistrationRequest): Pr
             request,
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         );
@@ -133,7 +133,7 @@ export async function getRegistrationStatus(registrationId: number): Promise<Reg
             { registrationId: registrationId },
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         );
@@ -171,7 +171,7 @@ export async function cancelRegistration(registrationId: number): Promise<Cancel
             { registrationId: registrationId },
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         );
@@ -203,7 +203,7 @@ export async function getBundles(location: string): Promise<any> {
             { location: location },
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         )
@@ -256,7 +256,7 @@ export async function registerBundle(request: BundleRegistrationRequest): Promis
             { location: location },
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         )

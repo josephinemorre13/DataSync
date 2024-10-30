@@ -19,7 +19,7 @@ export async function getTrainingHistory(startDate: string, endDate: string): Pr
             { StartDate: startDate, EndDate: endDate },
             {
                 headers: {
-                    "x-api-key": API_KEY,
+                    "X-ApiKey": API_KEY,
                     "Content-Type": "application/json"
                 }
             }

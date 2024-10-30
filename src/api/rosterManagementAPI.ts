@@ -15,7 +15,7 @@ export async function getRoster(): Promise<any> {
             url,
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         );
@@ -67,7 +67,7 @@ export async function addTrainee(request: AddTraineeRequest): Promise<AddTrainee
             request,
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         );
@@ -98,7 +98,7 @@ export async function removeTrainee(request: RemoveTraineeRequest): Promise<any>
             request,
             {
                 headers: {
-                    "x-api-key": API_KEY
+                    "X-ApiKey": API_KEY
                 }
             }
         );
