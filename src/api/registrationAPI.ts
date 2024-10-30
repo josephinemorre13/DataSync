@@ -15,7 +15,7 @@ const statusMessages = {
     "Cancelled": "The course was canceled/deleted from the trainee."
 } as const;
 
-type Status = keyof typeof statusMessages;
+type status = keyof typeof statusMessages;
 
 export async function getLocations(): Promise<string[]> {
     const url = `${BASE_URL}/v1/registration/locations`;
@@ -138,7 +138,7 @@ export async function getRegistrationStatus(registrationId: number): Promise<Reg
             }
         );
 
-        const status: Status = response.data
+        const status: status = response.data
 
         return {
             registrationId: registrationId,
@@ -217,35 +217,35 @@ export async function getBundles(location: string): Promise<any> {
 
 export async function registerBundle(request: BundleRegistrationRequest): Promise<BundleRegistrationResponse> {
     let {
-        ClientBundleId,
-        EmployeeId,
-        FirstName,
-        LastName,
-        Location = "Pasadena",
-        DesiredDate,
-        PoNumber,
-        Pfi
+        clientBundleId,
+        employeeId,
+        firstName,
+        lastName,
+        location = "Pasadena",
+        desiredDate,
+        poNumber,
+        pfi
     } = request;
 
-    if (!ClientBundleId || !EmployeeId || !FirstName || !LastName || !Location || !PoNumber || !Pfi) {
+    if (!clientBundleId || !employeeId || !firstName || !lastName || !location || !poNumber || !pfi) {
         console.error("Error: ClientBundleId, employeeId, firstName, lastName, location, poNumber and pfi are requested.");
         throw new Error("ClientBundleId, employeeId, firstName, lastName, location, poNumber and pfi must be provided.")
     }
 
-    if (["Stop", "Retry", "Continue"].includes(Pfi)) {
+    if (["Stop", "Retry", "Continue"].includes(pfi)) {
         console.error("Error: Stop, Retry and Continue are requested for PFI.");
         throw new Error(`Stop, Retry and Continue must be provided for PFI.`) 
     }
 
-    if (new Date(DesiredDate) < new Date()) {
+    if (new Date(desiredDate) < new Date()) {
         console.error("Error: Current date or after is requested for desiredDate.");
         throw new Error(`DesiredDate must be current date or after.`) 
     }
 
-    if (!DesiredDate) {
+    if (!desiredDate) {
         let currentDate = new Date();
         currentDate.setDate(new Date().getDate() + 1);
-        DesiredDate = currentDate;
+        desiredDate = currentDate;
     }
 
     const url = `${BASE_URL}/v1/registration/get-bundles`;

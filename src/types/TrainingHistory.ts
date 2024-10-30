@@ -1,13 +1,13 @@
 export interface TrainingHistoryRecord {
-    PurchaseOrder: string,
-    CourseCode: string,
-    CourseDescription: string,
-    TraineeId: string,
-    CompletedDate: string,
-    ExpiryDate: string,
-    Score: number,
-    Status: "Pass" | "Fail",
-    FirstName: string,
-    LastName: string,
-    DateOfBirth: string
+    purchaseOrder: string,
+    courseCode: string,
+    courseDescription: string,
+    traineeId: string,
+    completedDate: string,
+    expiryDate: string,
+    score: number,
+    status: "Pass" | "Fail",
+    firstName: string,
+    lastName: string,
+    dateOfBirth: string
 }

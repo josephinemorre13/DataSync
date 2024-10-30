@@ -9,17 +9,17 @@ import { TrainingHistoryRecord } from "../types/TrainingHistory";
  */
 export function cleanTrainingHistoryData(data: any[] ): TrainingHistoryRecord[] {
     return data.map(record => ({
-        PurchaseOrder: record.PurchaseOrder,
-        CourseCode: record.CourseCode,
-        CourseDescription: record.CourseDescription,
-        TraineeId: record.TraineeId,
-        CompletedDate: record.CompletedDate,
-        ExpiryDate: record.ExpiryDate,
-        Score: record.Score,
-        Status: record.Status,
-        FirstName: record.FirstName,
-        LastName: record.LastName,
-        DateOfBirth: record.DateOfBirth
+        purchaseOrder: record.purchaseOrder,
+        courseCode: record.courseCode,
+        courseDescription: record.courseDescription,
+        traineeId: record.traineeId,
+        completedDate: record.completedDate,
+        expiryDate: record.expiryDate,
+        score: record.score,
+        status: record.status,
+        firstName: record.firstName,
+        lastName: record.lastName,
+        dateOfBirth: record.dateOfBirth
     }));
 }
 
@@ -57,9 +57,9 @@ export function cleanCoursesData(data: any[]): CourseRecord[] {
  */
 export function cleanBundleData(data: any[]): BundleRecord[] {
     return data.map(record => ({
-        ClientBundleId: record.ClientBundleId,
-        BundleName: record.BundleName,
-        Courses: record.Courses,
+        clientBundleId: record.clientBundleId,
+        bundleName: record.bundleName,
+        courses: record.courses,
         includesBasicPlus: record.includesBasicPlus,
         includesSafetyEssentials: record.includesSafetyEssentials
     }))

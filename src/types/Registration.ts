@@ -33,22 +33,22 @@ export interface CancelRegistrationResponse {
 }
 
 export interface BundleRecord {
-    ClientBundleId: number,
-    BundleName: string;
-    Courses: CourseRecord[],
+    clientBundleId: number,
+    bundleName: string;
+    courses: CourseRecord[],
     includesBasicPlus: string,
     includesSafetyEssentials: string
 }
 
 export interface BundleRegistrationRequest {
-    ClientBundleId: number,
-    EmployeeId: string,
-    FirstName: string,
-    LastName: string,
-    Location: string,
-    DesiredDate: Date;
-    PoNumber: string;
-    Pfi: "Stop" | "Retry" | "Continue";
+    clientBundleId: number,
+    employeeId: string,
+    firstName: string,
+    lastName: string,
+    location: string,
+    desiredDate: Date;
+    poNumber: string;
+    pfi: "Stop" | "Retry" | "Continue";
 }
 
 export interface Schedule {

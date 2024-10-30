@@ -7,15 +7,15 @@ export interface RosterRecord {
 }
 
 export interface AddTraineeRequest {
-    Ssn: string,
-    IssuingAuthority: "US"| ["CA",""],
-    CouncilId: string,
-    FirstName: string,
-    LastName: string,
-    CompanyEmployeeId: string,
-    Phone: string,
-    Email: string,
-    Status: "FullTime" | "PartTime" | ""
+    ssn: string,
+    issuingAuthority: "US"| ["CA",""],
+    councilId: string,
+    firstName: string,
+    lastName: string,
+    companyEmployeeId: string,
+    phone: string,
+    email: string,
+    status: "FullTime" | "PartTime" | ""
 }
 
 export interface AddTraineeResponse {
@@ -26,8 +26,8 @@ export interface AddTraineeResponse {
 }
 
 export interface RemoveTraineeRequest {
-    Ssn: string,
-    IssuingAuthority: "US"| ["CA",""],
-    CouncilId: string,
-    CompanyEmployeeId: string,
+    ssn: string,
+    issuingAuthority: "US"| ["CA",""],
+    councilId: string,
+    companyEmployeeId: string,
 }

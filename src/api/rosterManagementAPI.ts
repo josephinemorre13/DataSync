@@ -1,6 +1,7 @@
 import axios from "axios";
 import { AddTraineeRequest, AddTraineeResponse, RemoveTraineeRequest } from "../types/RosterManagement";
 import dotenv from 'dotenv';
+import { logInfo } from "../utils/logger";
 
 dotenv.config();
 
@@ -29,32 +30,32 @@ export async function getRoster(): Promise<any> {
 
 export async function addTrainee(request: AddTraineeRequest): Promise<AddTraineeResponse> {
     const {
-        Ssn,
-        IssuingAuthority,
-        CouncilId,
-        FirstName,
-        LastName,
-        Phone,
-        Email,
-        Status
+        ssn,
+        issuingAuthority,
+        councilId,
+        firstName,
+        lastName,
+        phone,
+        email,
+        status
     } = request;
 
-    if (!Ssn && !IssuingAuthority && !CouncilId) {
-        console.error("Error: Either the SSN and IssuingAuthority are requested OR the CouncilId of an existing trainee.");
-        throw new Error("Either the SSN and IssuingAuthority must be provided OR the CouncilId of an existing trainee.")
+    if (!ssn && !issuingAuthority && !councilId) {
+        console.error("Error: Either the SSN and issuingAuthority are requested OR the councilId of an existing trainee.");
+        throw new Error("Either the SSN and issuingAuthority must be provided OR the councilId of an existing trainee.")
     }
 
-    if (!FirstName || !LastName || !Phone || !Email) {
-        console.error("Error: FirstName, LastName, Phone and Email are requested.");
-        throw new Error("FirstName, LastName, Phone and Email must be provided.")
+    if (!firstName || !lastName || !phone || !email) {
+        console.error("Error: FirstName, lastName, phone and email are requested.");
+        throw new Error("FirstName, lastName, phone and email must be provided.")
     }
 
-    if (!["US", ["CA", ""]].includes(IssuingAuthority)) {
+    if (!["US", ["CA", ""]].includes(issuingAuthority)) {
         console.error("Error: Either 1 for US SSNs or 2 for Canadian SSNs.");
         throw new Error(`Either 1 for US SSNs or 2 for Canadian SSNs. ["US"|"CA",""]`) 
     }
 
-    if (!["FullTime", "PartTime", ""].includes(Status)) {
+    if (!["FullTime", "PartTime", ""].includes(status)) {
         console.error("Error: If not empty, either FullTime or PartTime are requested.");
         throw new Error(`If not empty, either FullTime or PartTime must be provided.`) 
     }
@@ -73,28 +74,28 @@ export async function addTrainee(request: AddTraineeRequest): Promise<AddTrainee
         );
 
         return {
-            firstName: FirstName,
-            lastName: LastName,
-            councilId: CouncilId,
+            firstName: firstName,
+            lastName: lastName,
+            councilId: councilId,
             message: "SUCCESS"
         }
     } catch (error: any) {
         console.error("Failed to add trainee", error.message);
         return {
-            firstName: FirstName,
-            lastName: LastName,
-            councilId: CouncilId,
+            firstName: firstName,
+            lastName: lastName,
+            councilId: councilId,
             message: `ERROR - ${error.message}`
         }
     }
 }
 
 export async function removeTrainee(request: RemoveTraineeRequest): Promise<any> {
-    const { Ssn, IssuingAuthority, CouncilId } = request;
+    const { ssn, issuingAuthority, councilId } = request;
 
-    if (!Ssn && !IssuingAuthority && !CouncilId) {
-        console.error("Error: Either the SSN and IssuingAuthority are requested OR the CouncilId of an existing trainee.");
-        throw new Error("Either the SSN and IssuingAuthority must be provided OR the CouncilId of an existing trainee.")
+    if (!ssn && !issuingAuthority && !councilId) {
+        console.error("Error: Either the SSN and issuingAuthority are requested OR the councilId of an existing trainee.");
+        throw new Error("Either the SSN and issuingAuthority must be provided OR the councilId of an existing trainee.")
     }
 
     const url = `${BASE_URL}/v1/roster/remove`;
@@ -122,6 +123,7 @@ export async function updateEmployee(userData: any): Promise<any> {
         const removeEmployeeResult = await removeTrainee(userData);
         if (removeEmployeeResult === "SUCCESS") {
             const addEmployeeResult = await addTrainee(userData);
+            logInfo(addEmployeeResult)
         }
 
         return "SUCCESS";
